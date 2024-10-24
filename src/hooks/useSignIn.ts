@@ -1,12 +1,12 @@
 "use client";
-import { APIResponse, ApiError, User } from "@/interfaces";
+import { APIResponse, ApiError, User } from "interfaces";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-import { clientRequest } from "@/services";
+import { clientRequest } from "services";
 import { InferType } from "yup";
-import { loginValidationSchema } from "@/validations";
-import { storeInLocalStorage } from "@/lib/localStorage";
+import { loginValidationSchema } from "validations";
+import { storeInLocalStorage } from "lib/localStorage";
 
 type MutationProp = { data: InferType<typeof loginValidationSchema> };
 

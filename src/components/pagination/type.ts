@@ -1,4 +1,4 @@
-import { Pagination } from "@/interfaces";
+import { Pagination } from "interfaces";
 
 export type PaginationProps = {
   pagination: Pagination;

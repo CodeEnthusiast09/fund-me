@@ -1,5 +1,5 @@
 import seedrandom from "seedrandom";
-import { Pagination } from "@/interfaces";
+import { Pagination } from "interfaces";
 import { deleteFromLocalStorage } from "./localStorage";
 import { PAYMENT_REQUEST_STATUS, EQUIPMENT_OPERATIONAL_STATUS } from "./enum";
 

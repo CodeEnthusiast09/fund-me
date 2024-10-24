@@ -1,7 +1,7 @@
 "use client";
-import { Pagination } from "@/components/pagination";
-import { SearchBox } from "@/components/search-box";
-import { TableInterface } from "@/interfaces";
+import { Pagination } from "components/pagination";
+import { SearchBox } from "components/search-box";
+import { TableInterface } from "interfaces";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { TfiAngleLeft, TfiAngleRight } from "react-icons/tfi";
 
@@ -10,7 +10,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Skeleton } from "@/components/skeleton";
+import { Skeleton } from "components/skeleton";
 import { HiOutlineExclamationTriangle } from "react-icons/hi2";
 import clsx from "clsx";
 

@@ -1,7 +1,7 @@
 "use client";
 import { forwardRef } from "react";
 import { TextAreaProps } from "./type";
-import { useTextarea } from "@/hooks";
+import { useTextarea } from "hooks";
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (

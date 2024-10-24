@@ -34,7 +34,7 @@ export const Navbar = () => {
           onClick={toggleNav}
           className="bg-transparent hover:bg-transparent"
         >
-          <RiMenu4Line className="text-2xl text-lightGreen" />
+          <RiMenu4Line className="text-3xl text-black" />
         </Button>
       </div>
 
@@ -47,7 +47,7 @@ export const Navbar = () => {
         </ul>
       </nav>
       <LinkButton
-        href="/auth/sign-up"
+        href="/auth/login"
         className="bg-lightGreen hover:bg-darkGreen hidden md:block lg:rounded-full lg:text-black"
       >
         Sign In
@@ -64,7 +64,7 @@ export const Navbar = () => {
             onClick={toggleNav}
             className="bg-transparent hover:bg-transparent"
           >
-            <FaTimes className="text-lightGreen text-2xl absolute right-4" />
+            <FaTimes className="text-black text-2xl absolute right-4" />
           </Button>
         </div>
         <nav className="block z-50">

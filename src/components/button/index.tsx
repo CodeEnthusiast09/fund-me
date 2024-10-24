@@ -18,7 +18,7 @@ export const Button = (props: ButtonProps) => {
 
   const variantClass = () => {
     if (variant === "primary") {
-      return "text-white bg-primary-100 hover:bg-primary-100/80 focus:outline-secondary-500";
+      return "text-black bg-lightGreen hover:bg-darkGreen focus:outline-secondary-500";
     } else if (variant === "secondary") {
       return "text-white bg-secondary-500 hover:bg-secondary-500/80 focus:outline-secondary-500";
     } else if (variant === "neutral") {

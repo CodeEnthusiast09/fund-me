@@ -12,7 +12,7 @@ export const LinkButton = (props: ButtonProps) => {
     variant = "primary",
     justifyContent = "justify-center",
     size = "lg",
-    radius = "rounded lg:rounded-md focus:rounded",
+    radius = "rounded focus:rounded",
     target = "",
     ...rest
   } = props;
@@ -50,7 +50,7 @@ export const LinkButton = (props: ButtonProps) => {
           onClick?.(e);
         }}
         className={clsx(
-          "transition-all duration-300 ease-in-out  focus:outline-2 font-medium  text-sm text-center flex items-center focus:outline-offset-2",
+          "transition-all duration-300 ease-in-out  focus:outline-2 font-medium text-center flex items-center focus:outline-offset-2",
           justifyContent,
           radius,
           variantClass(),

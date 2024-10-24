@@ -1,4 +1,4 @@
-import { DebouncedInput } from "@/components/input/debounce-input";
+import { DebouncedInput } from "components/input/debounce-input";
 import { FaSearch } from "react-icons/fa";
 
 export const SearchBox = ({

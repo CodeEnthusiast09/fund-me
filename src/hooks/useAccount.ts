@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { clientRequest } from "@/services";
-import { User } from "@/interfaces";
-import { retrieveFromLocalStorage } from "@/lib/localStorage";
+import { clientRequest } from "services";
+import { User } from "interfaces";
+import { retrieveFromLocalStorage } from "lib/localStorage";
 
 export const useAccount = () => {
   const isLoggedIn = retrieveFromLocalStorage("token");

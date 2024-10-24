@@ -13,14 +13,14 @@ export default function Home() {
       <div className="bg-[url('/hands_touch_couple_212639_1280x1024.jpg')] bg-cover bg-center bg-no-repeat m-5 rounded-2xl h-[200px] lg:h-[700px] lg:mx-9">
         {/* Button */}
 
-        <div className="absolute top-24 right-4 w-28 lg:hidden">
-          <LinkButton
-            href={"/donation"}
-            className="font-semibold bg-lightGreen hover:bg-darkGreen rounded-xl mr-3 "
-          >
-            Donate
-          </LinkButton>
-        </div>
+        {/* <div className="absolute top-24 right-4 w-28 lg:hidden"> */}
+        <LinkButton
+          href={"/donation"}
+          className="absolute top-24 right-4 w-28 lg:hidden font-semibold bg-lightGreen hover:bg-darkGreen rounded-xl mr-3 "
+        >
+          Donate
+        </LinkButton>
+        {/* </div> */}
 
         {/* Content */}
         <div className="flex items-end justify-between relative lg:top-96">

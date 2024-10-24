@@ -1,5 +1,5 @@
-import { IndeterminateCheckbox } from "@/components/input/indeterminate-checkbox";
-import { TableCell } from "@/interfaces";
+import { IndeterminateCheckbox } from "components/input/indeterminate-checkbox";
+import { TableCell } from "interfaces";
 
 export const TableRowSelectionColumn = {
   id: "select",

@@ -3,7 +3,7 @@ import {
   useCloseDropdownOnModalClose,
   useEscapeKeyListener,
   useOnClickOutside,
-} from "@/hooks";
+} from "hooks";
 import { useState, Children, useRef } from "react";
 import { IoMdEye } from "react-icons/io";
 

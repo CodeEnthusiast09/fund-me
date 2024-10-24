@@ -1,8 +1,8 @@
 "use client";
-import { Button } from "@/components/button";
+import { Button } from "components/button";
 import { ModalProps } from "./type";
 import ReactModal from "react-modal";
-import { useModal } from "@/hooks";
+import { useModal } from "hooks";
 import { FaX } from "react-icons/fa6";
 
 export const Modal = ({

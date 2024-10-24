@@ -1,7 +1,7 @@
 "use client";
 
-import { DataTableFilter } from "@/interfaces";
-import { DEFAULT_TABLE_FILTERS } from "@/lib/constants";
+import { DataTableFilter } from "interfaces";
+import { DEFAULT_TABLE_FILTERS } from "lib/constants";
 import { useState } from "react";
 
 export const useTableFilter = () => {

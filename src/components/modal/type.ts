@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonVariant } from "@/components/button/type";
+import { ButtonVariant } from "components/button/type";
 
 export type ModalProps = {
   className?: string;

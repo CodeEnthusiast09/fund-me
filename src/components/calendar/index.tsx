@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
-import { formatTime } from "@/lib/utils";
+import { formatTime } from "lib/utils";
 
 export const Calendar = ({
   events,
@@ -13,7 +13,7 @@ export const Calendar = ({
 }: {
   events: any;
   eventClick?: Function;
-  contentHeight?: string
+  contentHeight?: string;
 }) => {
   const handleDateClick = (info: any) => {
     if (info?.event?.id) {

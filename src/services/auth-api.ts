@@ -1,6 +1,6 @@
 import { InferType } from "yup";
 import { clientRequestGateway } from "./client-request-gateway";
-import { loginValidationSchema } from "@/validations";
+import { loginValidationSchema } from "validations";
 
 const requestGateway = clientRequestGateway();
 

@@ -10,11 +10,11 @@ import {
   convertCamelKeysToSnakeCase,
   convertSnakeCaseKeysToCamelCase,
   extractPaginationFromGetResponse,
-} from "@/lib/utils";
+} from "lib/utils";
 import {
   retrieveFromLocalStorage,
   storeInLocalStorage,
-} from "@/lib/localStorage";
+} from "lib/localStorage";
 
 const service = (baseURL = process.env.NEXT_PUBLIC_API_BASE_URL!) => {
   const service = axios.create({

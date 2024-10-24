@@ -1,4 +1,4 @@
-import { DEFAULT_TABLE_FILTERS } from "@/lib/constants";
+import { DEFAULT_TABLE_FILTERS } from "lib/constants";
 import { clientRequestGateway } from "./client-request-gateway";
 
 const requestGateway = clientRequestGateway();

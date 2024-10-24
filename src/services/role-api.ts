@@ -1,7 +1,7 @@
 import { clientRequestGateway } from "./client-request-gateway";
 import { InferType } from "yup";
-import { roleValidationSchema } from "@/validations";
-import { DEFAULT_TABLE_FILTERS } from "@/lib/constants";
+import { roleValidationSchema } from "validations";
+import { DEFAULT_TABLE_FILTERS } from "lib/constants";
 
 const requestGateway = clientRequestGateway();
 

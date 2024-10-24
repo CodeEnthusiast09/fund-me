@@ -1,7 +1,7 @@
-import { DataTableFilter } from "@/interfaces";
+import { DataTableFilter } from "interfaces";
 import { clientRequestGateway } from "./client-request-gateway";
 import { InferType } from "yup";
-import { retrieveFromLocalStorage } from "@/lib/localStorage";
+import { retrieveFromLocalStorage } from "lib/localStorage";
 
 const requestGateway = clientRequestGateway();
 export const accountClientRequests = {

@@ -3,8 +3,6 @@ import { accountClientRequests } from "./account-api";
 import { roleClientRequests } from "./role-api";
 import { permissionClientRequests } from "./permission-api";
 import { dashboardClientRequests } from "./dashboard-api";
-import { newsCategoryClientRequest, newsClientRequest } from "./news-api";
-
 export const clientRequest = {
   auth: authClientRequests,
 
@@ -15,9 +13,4 @@ export const clientRequest = {
   permission: permissionClientRequests,
 
   dashboard: dashboardClientRequests,
-
-  news: {
-    newsClientRequest,
-    newsCategoryClientRequest,
-  },
 };

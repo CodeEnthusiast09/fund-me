@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteFromLocalStorage } from "@/lib/localStorage";
+import { deleteFromLocalStorage } from "lib/localStorage";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

@@ -5,6 +5,4 @@ export type FeaturesCardProps = {
   description?: React.ReactNode;
   className?: string;
   icon?: ElementType;
-  iconColor?: string;
-  iconBgColor?: string;
 };

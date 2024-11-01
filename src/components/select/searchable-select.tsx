@@ -40,7 +40,7 @@ export const SearchableSelect = ({
     if (defaultOptions && defaultOptions.length > 0) {
       onChange?.(defaultOptions);
     }
-  }, []);
+  }, [defaultOptions, onChange]);
 
   return (
     <div className="py-3">

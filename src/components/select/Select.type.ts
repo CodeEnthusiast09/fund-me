@@ -2,7 +2,7 @@ import React from "react";
 
 export type Option = {
   label: string;
-  value: string | boolean;
+  value: string;
 };
 
 export interface SelectProps

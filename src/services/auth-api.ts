@@ -1,13 +1,18 @@
 import { InferType } from "yup";
 import { clientRequestGateway } from "./client-request-gateway";
-import { loginValidationSchema } from "validations";
-
+import { loginValidationSchema, signUpValidationSchema } from "validations";
 const requestGateway = clientRequestGateway();
 
 export const authClientRequests = {
+  register: (payload: InferType<typeof signUpValidationSchema>) =>
+    requestGateway.post({
+      url: `/api/auth/register`,
+      payload,
+    }),
+
   login: (payload: InferType<typeof loginValidationSchema>) =>
     requestGateway.post({
-      url: `auth/login/admin`,
+      url: `/api/auth/login`,
       payload,
     }),
 

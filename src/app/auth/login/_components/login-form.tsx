@@ -56,7 +56,7 @@ export const LoginForm = () => {
         <Button
           type="submit"
           variant="primary"
-          className="text-disabled-200 block w-full cursor-pointer"
+          className=" block w-full cursor-pointer"
           isLoading={isSubmitting}
         >
           Sign In

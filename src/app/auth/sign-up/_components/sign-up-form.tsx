@@ -3,10 +3,11 @@
 import { Input } from "components/input";
 import { MaskPasswordInput } from "components/mask-password-input";
 import { Button } from "components/button";
+import { Select } from "components/select";
 import Link from "next/link";
-import { useSignIn } from "hooks";
+import { useSignUp } from "hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { loginValidationSchema } from "validations";
+import { signUpValidationSchema } from "validations";
 import { InferType } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FaFacebook } from "react-icons/fa";
@@ -15,48 +16,62 @@ import { IoLogoApple } from "react-icons/io5";
 import { FaXTwitter } from "react-icons/fa6";
 
 export const SignUpForm = () => {
-  const { mutate: signIn, isPending: isSubmitting } = useSignIn();
+  const { mutate: signUp, isPending: isSubmitting } = useSignUp();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(loginValidationSchema),
+    resolver: yupResolver(signUpValidationSchema),
   });
 
-  const handleLogin: SubmitHandler<InferType<typeof loginValidationSchema>> = (
-    data
-  ) => signIn({ data });
+  const handleSignUp: SubmitHandler<
+    InferType<typeof signUpValidationSchema>
+  > = (data) => signUp({ data });
 
   return (
-    <form onSubmit={handleSubmit(handleLogin)}>
+    <form onSubmit={handleSubmit(handleSignUp)}>
       <Input
         label="Firstname"
         type="text"
         placeholder="Enter firstname"
-        error={errors.email}
-        {...register("email", { required: true })}
+        error={errors?.firstname}
+        {...register("firstname", { required: true })}
       />
       <Input
         label="Lastname"
         type="text"
         placeholder="Enter lastname"
-        error={errors.email}
-        {...register("email", { required: true })}
+        error={errors?.lastname}
+        {...register("lastname", { required: true })}
       />
       <Input
         label="Email"
         type="text"
         placeholder="Enter email"
-        error={errors.email}
+        error={errors?.email}
         {...register("email", { required: true })}
       />
+
+      <Select
+        label="Gender"
+        {...register("gender", {
+          required: true,
+        })}
+        error={errors?.gender}
+        showRequiredAsterik
+        options={[
+          { label: "Male", value: "male" },
+          { label: "Female", value: "female" },
+        ]}
+      />
+
       <div className="relative">
         <MaskPasswordInput
           label="Password"
           placeholder="Enter Password"
-          error={errors.password}
+          error={errors?.password}
           {...register("password", { required: true })}
         />
 
@@ -71,10 +86,10 @@ export const SignUpForm = () => {
         <Button
           type="submit"
           variant="primary"
-          className="text-disabled-200 block w-full cursor-pointer"
+          className="block w-full cursor-pointer"
           isLoading={isSubmitting}
         >
-          Sign In
+          Sign Up
         </Button>
       </div>
       <div className="flex items-center gap-4 mt-7">

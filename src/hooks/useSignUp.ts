@@ -5,12 +5,11 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { clientRequest } from "services";
 import { InferType } from "yup";
-import { loginValidationSchema } from "validations";
-import { storeInLocalStorage } from "lib/localStorage";
+import { signUpValidationSchema } from "validations";
 
-type MutationProp = { data: InferType<typeof loginValidationSchema> };
+type MutationProp = { data: InferType<typeof signUpValidationSchema> };
 
-export const useSignIn = () => {
+export const useSignUp = () => {
   const router = useRouter();
 
   const { mutate, isPending } = useMutation<
@@ -20,17 +19,13 @@ export const useSignIn = () => {
   >({
     // @ts-ignore
     mutationFn: ({ data }: MutationProp) => {
-      return clientRequest.auth.login(data);
+      return clientRequest.auth.register(data);
     },
     onSuccess: async (response: APIResponse) => {
       if (response?.success) {
-        const user: User = response?.data?.user;
+        toast.success(response?.message ?? "Account created successfully");
 
-        toast.success(response?.message ?? "Welcome back");
-
-        storeInLocalStorage("user-id", user?.id);
-
-        router.push("/donation");
+        router.push("/auth/login");
       }
     },
     onError: (error: ApiError) => {

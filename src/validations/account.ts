@@ -1,5 +1,13 @@
 import * as yup from "yup";
 
+export const signUpValidationSchema = yup.object().shape({
+  firstname: yup.string().required("This field is required"),
+  lastname: yup.string().required("This field is required"),
+  gender: yup.string().required("This field is required"),
+  email: yup.string().email().required("This field is required"),
+  password: yup.string().required("This field is required"),
+});
+
 export const loginValidationSchema = yup.object().shape({
   email: yup
     .string()

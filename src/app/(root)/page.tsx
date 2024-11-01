@@ -2,9 +2,11 @@
 
 import { LinkButton } from "components/link-button";
 import FeaturesCard from "./_components/features-card";
+import DonationsCard from "./_components/donations-card";
 import { FaGift } from "react-icons/fa";
 import { IoMdFlash } from "react-icons/io";
 import { ImEarth } from "react-icons/im";
+import Community from "./_components/community";
 
 export default function Home() {
   return (
@@ -77,7 +79,31 @@ export default function Home() {
           Time of the essence! Join our mission NOW to make an immediate impact.
           Every second counts!
         </p>
+        <div className="grid-cols-3 lg:grid lg:mx-20">
+          <DonationsCard
+            image="/pexels-rdne-7414284.jpg"
+            title="GreenFund: Sustain Earth Now"
+            creator="We Care"
+            amount="50,240,210"
+            daysLeft="7"
+          />
+          <DonationsCard
+            image="/pexels-rdne-7414284.jpg"
+            title="GreenFund: Sustain Earth Now"
+            creator="We Care"
+            amount="50,240,210"
+            daysLeft="7"
+          />
+          <DonationsCard
+            image="/pexels-rdne-7414284.jpg"
+            title="GreenFund: Sustain Earth Now"
+            creator="We Care"
+            amount="50,240,210"
+            daysLeft="7"
+          />
+        </div>
       </div>
+      <Community />
     </div>
   );
 }

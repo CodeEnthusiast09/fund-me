@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { satoshi } from "app/fonts";
 import "./globals.css";
 import Providers from "./providers";
+import { Toaster } from "react-hot-toast";
+import { TOASTER_PROPS } from "lib/constants";
 
 export const metadata: Metadata = {
   title: "Fund Me",
@@ -16,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${satoshi.className} antialiased bg-lightGray`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Toaster {...TOASTER_PROPS} />
+          {children}
+        </Providers>
       </body>
     </html>
   );

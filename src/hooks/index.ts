@@ -6,3 +6,4 @@ export * from "./useSortableTable";
 export * from "./useCloseDropdownOnModalClose";
 export * from "./useEscapeKeyListener";
 export * from "./useOnClickOutside";
+export * from "./useSignUp";

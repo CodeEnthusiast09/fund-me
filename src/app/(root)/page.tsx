@@ -7,6 +7,7 @@ import { FaGift } from "react-icons/fa";
 import { IoMdFlash } from "react-icons/io";
 import { ImEarth } from "react-icons/im";
 import Community from "./_components/community";
+import FAQ from "./_components/faq";
 
 export default function Home() {
   return (
@@ -104,6 +105,9 @@ export default function Home() {
         </div>
       </div>
       <Community />
+      <div className="m-5 lg:m-9">
+        <FAQ />
+      </div>
     </div>
   );
 }

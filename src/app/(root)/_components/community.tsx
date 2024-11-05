@@ -3,22 +3,22 @@ import { LinkButton } from "components/link-button";
 
 const Community = () => {
   return (
-    <section className="py-16 px-2 max-w-4xl mx-auto">
+    <section className="lg:py-16 px-2 max-w-4xl mx-auto">
       <div className="relative">
         {/* Top Images */}
-        <div className="absolute left-0 -top-8 w-20 h-20">
+        <div className="hidden lg:block absolute -left-48 -top-8 h-52">
           <Image
-            width={50}
-            height={20}
+            width={150}
+            height={200}
             src="/pexels-rdne-7414284.jpg"
             alt="Fundraiser member"
             className="w-full h-full object-cover rounded-lg shadow-md"
           />
         </div>
-        <div className="absolute right-0 -top-4 w-24 h-24">
+        <div className="hidden lg:block absolute -right-48 -top-4 h-52">
           <Image
-            width={50}
-            height={20}
+            width={150}
+            height={200}
             src="/pexels-rdne-7414284.jpg"
             alt="Fundraiser member"
             className="w-full h-full object-cover rounded-lg shadow-md"
@@ -26,19 +26,19 @@ const Community = () => {
         </div>
 
         {/* Bottom Images */}
-        <div className="absolute left-12 bottom-0 w-24 h-24">
+        <div className="hidden lg:block absolute left-12 -bottom-10">
           <Image
-            width={50}
-            height={20}
+            width={150}
+            height={200}
             src="/pexels-rdne-7414284.jpg"
             alt="Fundraiser member"
             className="w-full h-full object-cover rounded-lg shadow-md"
           />
         </div>
-        <div className="absolute right-8 bottom-4 w-20 h-20">
+        <div className="hidden lg:block absolute right-8 -bottom-10">
           <Image
-            width={50}
-            height={20}
+            width={150}
+            height={200}
             src="/pexels-rdne-7414284.jpg"
             alt="Fundraiser member"
             className="w-full h-full object-cover rounded-lg shadow-md"

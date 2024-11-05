@@ -19,14 +19,10 @@ export const Navbar = () => {
 
   return (
     <header className="flex items-center justify-between m-2 lg:m-4">
-      <Image
-        alt="logo"
-        // className="w-24 lg:w-32"
-        src="/logo.png"
-        width={100}
-        height={150}
-        quality={100}
-      />
+      <div className="flex items-center gap-2">
+        <span className="text-[#9FE870] text-5xl">✱</span>
+        <span className="text-2xl font-semibold">fundMe</span>
+      </div>
       {/* Mobile devices */}
       <div className="flex items-center gap-4 lg:hidden">
         <Button

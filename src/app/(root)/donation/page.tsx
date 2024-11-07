@@ -20,7 +20,7 @@ const Donation = () => {
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link
-            href="/donation/new"
+            href="/donation/new-campaign"
             className="bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors"
           >
             Start a Campaign

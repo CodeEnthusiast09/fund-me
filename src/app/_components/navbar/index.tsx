@@ -8,7 +8,6 @@ import { FaTimes } from "react-icons/fa";
 import { navItems } from "./navbar.data";
 import { NavItem } from "interfaces/global";
 import { NavBarItem } from "./navbar-item";
-import Image from "next/image";
 
 export const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
@@ -21,7 +20,7 @@ export const Navbar = () => {
     <header className="flex items-center justify-between m-2 lg:m-4">
       <div className="flex items-center gap-2">
         <span className="text-[#9FE870] text-5xl">✱</span>
-        <span className="text-2xl font-semibold">fundMe</span>
+        <span className="text-2xl font-semibold">fundlyNest</span>
       </div>
       {/* Mobile devices */}
       <div className="flex items-center gap-4 lg:hidden">

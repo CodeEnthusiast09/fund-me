@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${satoshi.className} antialiased bg-lightGray`}>
+      <body className={`${satoshi.className} antialiased`}>
         <Providers>
           <Toaster {...TOASTER_PROPS} />
           {children}

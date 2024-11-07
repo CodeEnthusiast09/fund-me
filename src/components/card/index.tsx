@@ -14,7 +14,7 @@ export const Card = ({
   return (
     <div
       className={clsx(
-        "bg-white rounded-lg px-5",
+        "bg-lightGray rounded-lg px-5",
         className,
         py
       )}

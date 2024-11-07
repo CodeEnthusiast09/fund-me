@@ -77,7 +77,7 @@ export const SignUpForm = () => {
 
         <div className="text-lg py-3 flex justify-start items-center">
           <p>already have an account?&nbsp;</p>
-          <Link className="text-lightGreen underline" href="/auth/login">
+          <Link className="underline" href="/auth/login">
             Login
           </Link>
         </div>

@@ -64,7 +64,7 @@ export const LoginForm = () => {
 
         <div className="text-lg py-3 flex justify-start items-center">
           <p>New here?&nbsp;</p>
-          <Link className="text-lightGreen underline" href="/auth/sign-up">
+          <Link className="underline" href="/auth/sign-up">
             Sign Up
           </Link>
         </div>

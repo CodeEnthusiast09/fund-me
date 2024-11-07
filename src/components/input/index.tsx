@@ -67,7 +67,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             //     onChange={onChange ? handleChange : onChange : undefined}
             onChange={handleChange}
             className={clsx(
-              "mt-2 outline-none bg-lightGray placeholder-darkGray block w-full h-12  text-sm py-2 focus:outline-1 focus:outline-black [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
+              "mt-2 outline-0 border border-slate-300 placeholder-darkGray block w-full h-12  text-sm py-2 focus:outline-2 focus:outline-black [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
               className ? className : "text-gray-600",
               leftIcon ? "pl-10" : "px-4",
               radius

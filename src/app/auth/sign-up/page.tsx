@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { SignUpForm } from "./_components/sign-up-form";
+// import Link from "next/link";
 import { Card } from "components/card";
 
 export default function SignUp() {
@@ -24,6 +25,12 @@ export default function SignUp() {
       {/* Form section */}
       <div className="relative z-10 w-full lg:w-1/2 flex items-center justify-center min-h-screen bg-black/50 lg:bg-white">
         <Card className="w-full max-w-md mx-4 bg-white py-12 rounded-xl border-none">
+          {/* <Link
+            href="/"
+            className="bg-lightGreen hover:bg-darkGreen rounded-full w-40 p-2"
+          >
+            ← Go Home
+          </Link> */}
           <h1 className="text-2xl lg:text-3xl text-primary-100 font-semibold mt-5">
             Sign Up
           </h1>

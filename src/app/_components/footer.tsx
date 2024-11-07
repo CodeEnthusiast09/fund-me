@@ -22,7 +22,7 @@ const Footer = () => {
           <div className="space-y-2 flex justify-between lg:flex-col lg:justify-normal">
             <div className="flex items-center gap-2">
               <span className="text-[#9FE870] text-2xl">✱</span>
-              <span className="text-xl font-semibold">Fund</span>
+              <span className="text-xl font-semibold">fundlyNest</span>
             </div>
             <p className="text-sm text-gray-300 leading-tight">
               Elevating Experience & Seize <br />

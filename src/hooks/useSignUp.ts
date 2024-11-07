@@ -25,7 +25,7 @@ export const useSignUp = () => {
       if (response?.success) {
         toast.success(response?.message ?? "Account created successfully");
 
-        router.push("/login");
+        router.push("/auth/login");
       }
     },
     onError: (error: ApiError) => {

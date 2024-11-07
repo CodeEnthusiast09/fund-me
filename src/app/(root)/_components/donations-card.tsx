@@ -11,7 +11,7 @@ const DonationsCard = ({
   daysLeft,
 }: DonationsCardProps) => {
   return (
-    <div className="w-full mt-10 max-w-md rounded-xl overflow-hidden bg-white p-4 hover:shadow-lg transition-shadow">
+    <div className="w-full mt-10 max-w-md rounded-xl overflow-hidden bg-lightGray p-4 hover:shadow-lg transition-shadow">
       {/* Image Container */}
       <div className="relative w-full h-60">
         <Image

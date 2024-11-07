@@ -25,8 +25,7 @@ const Footer = () => {
               <span className="text-xl font-semibold">fundlyNest</span>
             </div>
             <p className="text-sm text-gray-300 leading-tight">
-              Elevating Experience & Seize <br />
-              Control Of Your Smart Home!
+              Nest Your Ideas, Fund Your Future
             </p>
           </div>
 

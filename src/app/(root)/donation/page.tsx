@@ -98,36 +98,38 @@ const Donation = () => {
           {/* Featured Campaigns */}
           <h2 className="text-2xl font-bold mb-6">Featured Campaigns</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="border rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                <div className="aspect-video bg-gray-200"></div>
-                <div className="p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-semibold">Campaign Title</h3>
-                    <button className="text-gray-500 hover:text-black">
-                      <Share2 size={18} />
-                    </button>
-                  </div>
-                  <p className="text-gray-600 text-sm mb-4">
-                    Brief description of the campaign goes here...
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <div className="h-2 w-48 bg-darkGray rounded-full overflow-hidden">
-                        <div className="h-full w-3/4 bg-[#9FE870]"></div>
-                      </div>
-                      <p className="text-sm text-gray-600 mt-1">75% funded</p>
+            <Link href="/donation/campaignId">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div
+                  key={i}
+                  className="border rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+                >
+                  <div className="aspect-video bg-gray-200"></div>
+                  <div className="p-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="font-semibold">Campaign Title</h3>
+                      <button className="text-gray-500 hover:text-black">
+                        <Share2 size={18} />
+                      </button>
                     </div>
-                    <button className="text-gray-500 hover:text-red-500">
-                      <Heart size={18} />
-                    </button>
+                    <p className="text-gray-600 text-sm mb-4">
+                      Brief description of the campaign goes here...
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="h-2 w-48 bg-darkGray rounded-full overflow-hidden">
+                          <div className="h-full w-3/4 bg-[#9FE870]"></div>
+                        </div>
+                        <p className="text-sm text-gray-600 mt-1">75% funded</p>
+                      </div>
+                      <button className="text-gray-500 hover:text-red-500">
+                        <Heart size={18} />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </Link>
           </div>
         </div>
       ) : (

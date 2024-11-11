@@ -27,6 +27,7 @@
     "lucide-react": "^0.454.0",
     "moment": "^2.30.1",
     "next": "14.2.11",
+    "payaza-web-sdk": "^1.0.4",
     "quill": "^2.0.2",
     "react": "^18",
     "react-dom": "^18",

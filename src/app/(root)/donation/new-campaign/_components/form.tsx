@@ -1,5 +1,3 @@
-"use client";
-
 import { Input } from "components/input";
 import { Textarea } from "components/textarea";
 import TextEditor from "components/text-editor";

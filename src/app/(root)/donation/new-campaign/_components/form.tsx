@@ -1,6 +1,7 @@
+"use client";
+
 import { Input } from "components/input";
 import { Textarea } from "components/textarea";
-import TextEditor from "components/text-editor";
 import { Button } from "components/button";
 import { Select } from "components/select";
 import { useRouter } from "next/navigation";
@@ -9,6 +10,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { signUpValidationSchema } from "validations";
 import { InferType } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import dynamic from "next/dynamic";
+
+const TextEditor = dynamic(() => import("components/text-editor"), {
+  ssr: false,
+});
 
 export const Form = () => {
   const { mutate: signUp, isPending: isSubmitting } = useSignUp();

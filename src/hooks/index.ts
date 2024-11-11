@@ -7,4 +7,4 @@ export * from "./useCloseDropdownOnModalClose";
 export * from "./useEscapeKeyListener";
 export * from "./useOnClickOutside";
 export * from "./useSignUp";
-export * from "./usePayazaCheckOut";
+export * from "./usePayazaCheckout";

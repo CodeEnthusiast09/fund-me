@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { TOASTER_PROPS } from "lib/constants";
 
 export const metadata: Metadata = {
-  title: "Fund Me",
+  title: "fundlyNest",
   description: "Online Fundraising for Any Event, Anytime, Anywhere",
 };
 

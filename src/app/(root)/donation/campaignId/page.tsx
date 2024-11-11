@@ -16,17 +16,17 @@ const Page = () => {
   const [activeTab, setActiveTab] = useState("story");
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="lg:flex justify-between items-center mb-8">
+      <div className="lg:flex md:flex justify-between items-center mb-8">
         <h1 className="text-center text-2xl font-bold">Title</h1>
         <LinkButton
           href="/donation/campaignId/donate"
-          className="bg-lightGreen hover:bg-darkGreen hidden lg:block"
+          className="bg-lightGreen hover:bg-darkGreen hidden md:block lg:block"
         >
           Donate Now
         </LinkButton>
       </div>
-      <div className="flex flex-col items-center lg:flex-row gap-8">
-        <div className=" relative w-full h-60 md:w-1/2">
+      <div className="flex flex-col items-center md:flex-row lg:flex-row gap-8">
+        <div className=" relative w-full h-80 md:w-1/2">
           <Image
             src="/pexels-rdne-7414284.jpg"
             alt="Campaign Image"
@@ -77,8 +77,8 @@ const Page = () => {
             </a>
           </div>
           <LinkButton
-            href="/campaignId/donate"
-            className="bg-lightGreen hover:bg-darkGreen lg:hidden"
+            href="/donation/campaignId/donate"
+            className="bg-lightGreen hover:bg-darkGreen md:hidden lg:hidden"
           >
             Donate Now
           </LinkButton>

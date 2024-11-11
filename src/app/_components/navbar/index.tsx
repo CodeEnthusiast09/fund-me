@@ -23,7 +23,7 @@ export const Navbar = () => {
         <span className="text-2xl font-semibold">fundlyNest</span>
       </div>
       {/* Mobile devices */}
-      <div className="flex items-center gap-4 lg:hidden">
+      <div className="flex items-center gap-4 lg:hidden md:hidden">
         <Button
           type="button"
           onClick={toggleNav}

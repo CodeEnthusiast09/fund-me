@@ -51,7 +51,7 @@ export default function Home() {
           Fundraise at the speed of thought! Elevate your cause in just a minute
           with our lightening-fast fundraising platform
         </p>
-        <div className="grid-cols-3 lg:grid lg:mx-20">
+        <div className="grid-cols-3 md:justify-items-center lg:grid lg:mx-20">
           <FeaturesCard
             title="Ignite Impact"
             description="Spark joy by sharing your cause and the positive impact it brings. Clearly express how contributions will make a meaningful difference"
@@ -80,7 +80,7 @@ export default function Home() {
           Time of the essence! Join our mission NOW to make an immediate impact.
           Every second counts!
         </p>
-        <div className="grid-cols-3 lg:grid lg:mx-20">
+        <div className="grid-cols-3 md:justify-items-center lg:grid lg:mx-20">
           <DonationsCard
             image="/pexels-rdne-7414284.jpg"
             title="GreenFund: Sustain Earth Now"

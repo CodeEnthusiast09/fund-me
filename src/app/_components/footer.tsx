@@ -14,13 +14,13 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-black text-white px-6 py-8 rounded-3xl m-5 lg:m-9">
+    <footer className="bg-black text-white px-4 py-8 rounded-3xl m-5 lg:m-9">
       <div className="max-w-7xl mx-auto">
         {/* Top section with logo and navigation */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           {/* Logo and tagline section */}
-          <div className="space-y-2 flex justify-between lg:flex-col lg:justify-normal">
-            <div className="flex items-center gap-2">
+          <div className="flex justify-between items-center gap-5 lg:flex-col md:block md:justify-normal lg:justify-normal">
+            <div className="flex items-center">
               <span className="text-[#9FE870] text-2xl">✱</span>
               <span className="text-xl font-semibold">fundlyNest</span>
             </div>
@@ -65,28 +65,28 @@ const Footer = () => {
               href="#instagram"
               className="hover:text-[#9FE870] transition-colors flex gap-3 items-center"
             >
-              <FaInstagram size={30} />
+              <FaInstagram size={25} />
               <span className="hidden lg:block">Instagram</span>
             </a>
             <a
               href="#facebook"
               className="hover:text-[#9FE870] transition-colors flex gap-3 items-center"
             >
-              <FaFacebook size={30} />
+              <FaFacebook size={25} />
               <span className="hidden lg:block">Facebook</span>
             </a>
             <a
               href="#twitter"
               className="hover:text-[#9FE870] transition-colors flex gap-3 items-center"
             >
-              <FaXTwitter size={30} />
+              <FaXTwitter size={25} />
               <span className="hidden lg:block">Twitter</span>
             </a>
             <a
               href="#linkedin"
               className="hover:text-[#9FE870] transition-colors flex gap-3 items-center"
             >
-              <FaLinkedin size={30} />
+              <FaLinkedin size={25} />
               <span className="hidden lg:block">LinkedIn</span>
             </a>
           </div>

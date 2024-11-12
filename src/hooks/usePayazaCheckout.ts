@@ -122,6 +122,7 @@ export const usePayazaCheckout = () => {
             last_name: data.last_name,
             phone_number: data.phone_number,
             checkout_amount: data.checkout_amount,
+            currency: "₦",
             transaction_reference: `TX_${Date.now()}`,
             onClose: () => {
               reject(new Error("Checkout was closed"));

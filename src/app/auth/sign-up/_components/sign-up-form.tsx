@@ -36,15 +36,15 @@ export const SignUpForm = () => {
         label="Firstname"
         type="text"
         placeholder="Enter firstname"
-        error={errors?.firstname}
-        {...register("firstname", { required: true })}
+        error={errors?.firstName}
+        {...register("firstName", { required: true })}
       />
       <Input
         label="Lastname"
         type="text"
         placeholder="Enter lastname"
-        error={errors?.lastname}
-        {...register("lastname", { required: true })}
+        error={errors?.lastName}
+        {...register("lastName", { required: true })}
       />
       <Input
         label="Email"

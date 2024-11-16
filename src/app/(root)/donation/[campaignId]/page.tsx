@@ -103,6 +103,14 @@ const Page = () => {
         >
           Supporters
         </button>
+        <button
+          className={`px-4 py-2 ${
+            activeTab === "feed" ? "border-b-2 border-black" : ""
+          }`}
+          onClick={() => setActiveTab("feed")}
+        >
+          Feed
+        </button>
       </div>
       {activeTab === "story" ? <Story /> : <Supporters />}
     </div>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { LoginForm } from "./_components/verification-form";
+import { VerificationForm } from "./_components/verification-form";
 import { Card } from "components/card";
 
 export default function Login() {
@@ -27,7 +27,7 @@ export default function Login() {
           <h1 className="text-2xl lg:text-3xl text-primary-100 font-semibold mt-5">
             Verify Your Identity
           </h1>
-          <LoginForm />
+          <VerificationForm />
         </Card>
       </div>
 

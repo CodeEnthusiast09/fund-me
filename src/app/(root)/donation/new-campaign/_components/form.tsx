@@ -1,91 +1,107 @@
 "use client";
 
 import { Input } from "components/input";
+import { FileInput } from "components/file-input";
 import { Textarea } from "components/textarea";
 import { Button } from "components/button";
+import { CheckableList } from "components/checkable-list";
 import { Select } from "components/select";
 import { useRouter } from "next/navigation";
-import { useSignUp } from "hooks";
+import { useCreateCampaign } from "hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { signUpValidationSchema } from "validations";
+import { campaignValidationSchema } from "validations";
 import { InferType } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 
 const TextEditor = dynamic(() => import("components/text-editor"), {
   ssr: false,
 });
 
 export const Form = () => {
-  const { mutate: signUp, isPending: isSubmitting } = useSignUp();
+  const { mutate, isPending: isSubmitting } = useCreateCampaign();
   const router = useRouter();
+  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
 
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(signUpValidationSchema),
+  } = useForm<InferType<typeof campaignValidationSchema>>({
+    defaultValues: {
+      category: [" "],
+    },
+    resolver: yupResolver(campaignValidationSchema),
   });
 
-  const handleSignUp: SubmitHandler<
-    InferType<typeof signUpValidationSchema>
-  > = (data) => signUp({ data });
+  const handleCreateCampaign: SubmitHandler<
+    InferType<typeof campaignValidationSchema>
+  > = (data) => mutate({ data });
 
   return (
-    <form onSubmit={handleSubmit(handleSignUp)}>
+    <form onSubmit={handleSubmit(handleCreateCampaign)}>
       <Input
         label="Title"
         type="text"
         placeholder="Enter title"
-        error={errors?.firstname}
-        {...register("firstname", { required: true })}
+        error={errors?.title}
+        {...register("title", { required: true })}
       />
-      <Textarea
+
+      <FileInput
+        label="Image"
+        onSelectFile={(file) => setValue("headerImage", file)}
+        accept="file/*"
+        error={errors?.headerImage}
+      />
+
+      <Input
         label="Campaign Description"
         placeholder="Enter description"
-        error={errors?.lastname}
-        {...register("lastname", { required: true })}
+        error={errors?.description}
+        {...register("description", { required: true })}
       />
+
       <TextEditor
         label="Story"
-        onChange={(value) => setValue("email", value)}
+        onChange={(value) => setValue("story", value)}
         placeholder="Please provide story"
-        error={errors?.email}
+        error={errors?.story}
       />
 
       <Input
         label="Goal"
-        {...register("gender", {
+        {...register("goal", {
           required: true,
         })}
         type="number"
-        error={errors?.gender}
+        error={errors?.goal}
         showRequiredAsterik
       />
 
       <Input
         label="Deadline"
-        {...register("gender", {
+        {...register("deadline", {
           required: true,
         })}
         type="datetime-local"
-        error={errors?.gender}
+        error={errors?.deadline}
         showRequiredAsterik
       />
 
-      <Select
+      <CheckableList
         label="Category"
-        {...register("gender", {
-          required: true,
-        })}
-        error={errors?.gender}
-        showRequiredAsterik
+        selectedItems={selectedCategory}
+        setSelectedItems={setSelectedCategory}
         options={[
-          { label: "Male", value: "male" },
-          { label: "Female", value: "female" },
+          { label: "Education", value: "education" },
+          { label: "Health Care", value: "healthcare" },
+          { label: "Environment", value: "environment" },
+          { label: "Disaster Relief", value: "disaster-relief" },
         ]}
+        error={errors?.category}
       />
 
       <div className="pt-5 flex gap-4 md:justify-end flex-wrap">

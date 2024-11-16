@@ -12,7 +12,7 @@ type MutationProp = { data: InferType<typeof signUpValidationSchema> };
 export const useSignUp = () => {
   const router = useRouter();
 
-  const { mutate, isPending } = useMutation<
+  const { mutate, isPending, isSuccess, isError, error, data } = useMutation<
     APIResponse,
     ApiError,
     MutationProp
@@ -25,7 +25,7 @@ export const useSignUp = () => {
       if (response?.success) {
         toast.success(response?.message ?? "Account created successfully");
 
-        router.push("/auth/login");
+        router.push("/auth/verify");
       }
     },
     onError: (error: ApiError) => {
@@ -33,5 +33,5 @@ export const useSignUp = () => {
     },
   });
 
-  return { mutate, isPending };
+  return { mutate, isPending, isSuccess, isError, error, data };
 };

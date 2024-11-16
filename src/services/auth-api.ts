@@ -6,13 +6,13 @@ const requestGateway = clientRequestGateway();
 export const authClientRequests = {
   register: (payload: InferType<typeof signUpValidationSchema>) =>
     requestGateway.post({
-      url: `/api/auth/register`,
+      url: `/user/signup`,
       payload,
     }),
 
   login: (payload: InferType<typeof loginValidationSchema>) =>
     requestGateway.post({
-      url: `/api/auth/login`,
+      url: `/user/login`,
       payload,
     }),
 

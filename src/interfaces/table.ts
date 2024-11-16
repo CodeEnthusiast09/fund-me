@@ -36,6 +36,12 @@ export interface DataTableFilter {
   search?: string;
 }
 
+export interface DataCampaignFilter {
+  limit?: number;
+  order?: string;
+  search?: string;
+}
+
 export interface TableCell {
   getValue: Function;
   row: any;

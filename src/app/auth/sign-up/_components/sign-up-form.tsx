@@ -86,7 +86,7 @@ export const SignUpForm = () => {
         <Button
           type="submit"
           variant="primary"
-          className="block w-full cursor-pointer"
+          className="block w-full cursor-pointer bg-lightGreen"
           isLoading={isSubmitting}
         >
           Sign Up

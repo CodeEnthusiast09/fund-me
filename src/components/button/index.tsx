@@ -11,14 +11,14 @@ export const Button = (props: ButtonProps) => {
     className: extendedClassName,
     variant = "primary",
     justifyContent = "justify-center",
-    radius = "rounded lg:rounded-md focus:rounded",
+    radius = "rounded-full lg:rounded-full focus:rounded-full",
     size = "md",
     ...rest
   } = props;
 
   const variantClass = () => {
     if (variant === "primary") {
-      return "text-black bg-lightGreen hover:bg-darkGreen focus:outline-secondary-500";
+      return "text-black bg-lightGree hover:bg-darkGreen focus:outline-secondary-500";
     } else if (variant === "secondary") {
       return "text-white bg-secondary-500 hover:bg-secondary-500/80 focus:outline-secondary-500";
     } else if (variant === "neutral") {

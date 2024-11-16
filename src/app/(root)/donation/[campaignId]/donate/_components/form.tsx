@@ -104,7 +104,7 @@ const Form = () => {
 
         <Button
           type="submit"
-          className="h-12 w-full md:w-auto"
+          className="h-12 w-full md:w-auto bg-lightGreen"
           isLoading={isSubmitting}
         >
           Submit

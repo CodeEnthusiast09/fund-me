@@ -1,79 +1,3 @@
-// "use client";
-// import { useMutation } from "@tanstack/react-query";
-// import { useRouter } from "next/navigation";
-// import { toast } from "react-hot-toast";
-// import PayazaCheckout from "payaza-web-sdk";
-// import { PayazaCheckoutOptionsInterface } from "payaza-web-sdk/lib/PayazaCheckoutDataInterface";
-// import { ConnectionMode } from "payaza-web-sdk/lib/PayazaCheckout";
-// import { InferType } from "yup";
-// import { payoutValidationSchema } from "validations";
-
-// type MutationProp = {
-//   data: InferType<typeof payoutValidationSchema>;
-// };
-
-// interface PayazaResponse {
-//   success: boolean;
-//   message: string;
-//   data?: any;
-// }
-
-// export const usePayazaCheckout = () => {
-//   const router = useRouter();
-
-//   const { mutate, isPending } = useMutation<
-//     PayazaResponse,
-//     Error,
-//     MutationProp
-//   >({
-//     mutationFn: async ({ data }: MutationProp) => {
-//       return new Promise((resolve, reject) => {
-//         try {
-//           const checkoutData: PayazaCheckoutOptionsInterface = {
-//             merchant_key: "PZ78-PKTEST-31907A10-D2D8-4591-9D07-9CE921F698D4",
-//         //     merchant_key: process.env.NEXT_PUBLIC_PAYAZA_KEY!,
-//             connection_mode: (process.env.NODE_ENV === "production"
-//               ? "live"
-//               : "test") as ConnectionMode,
-//             currency_code: data.currency_code,
-//             email_address: data.email_address,
-//             first_name: data.first_name,
-//             last_name: data.last_name,
-//             phone_number: data.phone_number,
-//             transaction_reference: `TX_${Date.now()}`,
-//             checkout_amount: data.checkout_amount,
-//             onClose: () => {
-//               reject(new Error("Checkout was closed"));
-//             },
-//             callback: (response) => {
-//               resolve({
-//                 success: true,
-//                 message: "Payment successful",
-//                 data: response,
-//               });
-//             },
-//           };
-
-//           const checkout = new PayazaCheckout(checkoutData);
-//           checkout.showPopup();
-//         } catch (error) {
-//           reject(error);
-//         }
-//       });
-//     },
-//     onSuccess: (response) => {
-//       toast.success(response.message ?? "Payment completed successfully");
-//       // Redirect to success page or handle success case
-//       router.push("/donation/campaignId");
-//     },
-//     onError: (error: Error) => {
-//       toast.error(error.message || "Payment failed. Please try again.");
-//     },
-//   });
-
-//   return { mutate, isPending };
-// };
-
 "use client";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -98,7 +22,7 @@ export const usePayazaCheckout = () => {
   const router = useRouter();
   const merchantKey = process.env.NEXT_PUBLIC_PAYAZA_KEY;
 
-  const { mutate, isPending } = useMutation<
+  const { mutate, isPending, isSuccess } = useMutation<
     PayazaResponse,
     Error,
     MutationProp
@@ -112,11 +36,12 @@ export const usePayazaCheckout = () => {
           }
 
           const checkoutData: PayazaCheckoutOptionsInterface = {
-            merchant_key: merchantKey,
+            merchant_key: "PZ78-PKTEST-4DD181CE-7F34-4151-BD37-14D664541428",
             connection_mode: (process.env.NODE_ENV === "production"
               ? "live"
-              : "test") as ConnectionMode,
-            currency_code: data.currency_code,
+              : "Test") as ConnectionMode,
+            // currency_code: data.currency_code,
+            currency_code: "NGN",
             email_address: data.email_address,
             first_name: data.first_name,
             last_name: data.last_name,
@@ -149,7 +74,7 @@ export const usePayazaCheckout = () => {
     },
     onSuccess: (response) => {
       toast.success(response.message ?? "Payment completed successfully");
-      router.push("/payment/success");
+      router.back();
     },
     onError: (error: Error) => {
       // More specific error handling
@@ -162,5 +87,5 @@ export const usePayazaCheckout = () => {
     },
   });
 
-  return { mutate, isPending };
+  return { mutate, isPending, isSuccess };
 };

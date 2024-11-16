@@ -13,7 +13,7 @@ type MutationProp = { data: InferType<typeof loginValidationSchema> };
 export const useSignIn = () => {
   const router = useRouter();
 
-  const { mutate, isPending } = useMutation<
+  const { mutate, isPending, isSuccess, isError, error, data } = useMutation<
     APIResponse,
     ApiError,
     MutationProp
@@ -30,7 +30,8 @@ export const useSignIn = () => {
 
         storeInLocalStorage("user-id", user?.id);
 
-        router.push("/donation");
+        router.back();
+        // router.push("/donation");
       }
     },
     onError: (error: ApiError) => {
@@ -38,5 +39,5 @@ export const useSignIn = () => {
     },
   });
 
-  return { mutate, isPending };
+  return { mutate, isPending, isSuccess, isError, error, data };
 };

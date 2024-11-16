@@ -8,9 +8,13 @@ import { FaTimes } from "react-icons/fa";
 import { navItems } from "./navbar.data";
 import { NavItem } from "interfaces/global";
 import { NavBarItem } from "./navbar-item";
+import { useSignIn } from "hooks";
+import UserMenu from "../user-menu";
 
 export const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
+
+  const { data, isSuccess } = useSignIn();
 
   const toggleNav = () => {
     setShowNav((prev: boolean) => !prev);
@@ -41,12 +45,16 @@ export const Navbar = () => {
           ))}
         </ul>
       </nav>
-      <LinkButton
-        href="/auth/login"
-        className="bg-lightGreen hover:bg-darkGreen hidden md:block lg:rounded-full lg:text-black"
-      >
-        Sign In
-      </LinkButton>
+      {isSuccess && data?.data?.user ? (
+        <UserMenu />
+      ) : (
+        <LinkButton
+          href="/auth/login"
+          className="bg-lightGreen hover:bg-darkGreen hidden md:block lg:rounded-full lg:text-black"
+        >
+          Sign In
+        </LinkButton>
+      )}
 
       {/* Mobile Navbar */}
       <div

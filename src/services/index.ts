@@ -1,9 +1,9 @@
 import { authClientRequests } from "./auth-api";
-import { accountClientRequests } from "./account-api";
-import { dashboardClientRequests } from "./dashboard-api";
+import { campaignClientRequest } from "./campaign-api";
+import { fileClientRequests } from "./file-api";
+
 export const clientRequest = {
   auth: authClientRequests,
-
-  user: accountClientRequests,
-  dashboard: dashboardClientRequests,
+  campaign: campaignClientRequest,
+  file: fileClientRequests,
 };

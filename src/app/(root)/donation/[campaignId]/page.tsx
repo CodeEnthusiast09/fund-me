@@ -11,6 +11,7 @@ import {
 import Story from "./_components/story";
 import Supporters from "./_components/supporters";
 import { LinkButton } from "components/link-button";
+import Feed from "./_components/feed";
 
 const Page = () => {
   const [activeTab, setActiveTab] = useState("story");
@@ -112,7 +113,13 @@ const Page = () => {
           Feed
         </button>
       </div>
-      {activeTab === "story" ? <Story /> : <Supporters />}
+      {activeTab === "story" ? (
+        <Story />
+      ) : activeTab === "supporters" ? (
+        <Supporters />
+      ) : (
+        <Feed />
+      )}
     </div>
   );
 };

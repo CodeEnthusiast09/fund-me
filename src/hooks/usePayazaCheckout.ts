@@ -36,7 +36,7 @@ export const usePayazaCheckout = () => {
           }
 
           const checkoutData: PayazaCheckoutOptionsInterface = {
-            merchant_key: process.env.NEXT_PUBLIC_PAYAZA_KEY!,
+            merchant_key: "PZ78-PKTEST-4DD181CE-7F34-4151-BD37-14D664541428",
             connection_mode: (process.env.NODE_ENV === "production"
               ? "live"
               : "Test") as ConnectionMode,

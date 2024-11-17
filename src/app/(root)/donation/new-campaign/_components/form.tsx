@@ -108,14 +108,14 @@ export const Form = () => {
         <Button
           variant="transparent"
           onClick={() => router.back()}
-          className="h-12 w-full md:w-auto order-last md:order-first"
+          className="h-12 w-full md:w-auto order-last md:order-first "
         >
           Cancel
         </Button>
 
         <Button
           type="submit"
-          className="h-12 w-full md:w-auto"
+          className="h-12 w-full md:w-auto bg-lightGreen"
           isLoading={isSubmitting}
         >
           Submit

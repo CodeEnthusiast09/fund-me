@@ -57,7 +57,7 @@ import { LinkButton } from "components/link-button";
 const DonationContent = () => {
   const { isSuccess, data } = useSignIn();
 
-  if (!isSuccess || !data?.data?.user) {
+  if (!isSuccess || !data) {
     return (
       <div className="flex flex-col items-center justify-center h-[50vh]">
         <h2 className="text-2xl font-bold mb-6">

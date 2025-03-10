@@ -3,6 +3,7 @@
 import { Input } from "components/input";
 import { Button } from "components/button";
 import { useRouter } from "next/navigation";
+import { LinkButton } from "components/link-button";
 
 export const VerificationForm = () => {
   const router = useRouter();
@@ -26,13 +27,13 @@ export const VerificationForm = () => {
       />
 
       <div className="pt-5">
-        <Button
-          type="submit"
+        <LinkButton
+          href="/auth/login"
           variant="primary"
           className=" block w-full cursor-pointer bg-lightGreen"
         >
           Sign In
-        </Button>
+        </LinkButton>
       </div>
     </form>
   );

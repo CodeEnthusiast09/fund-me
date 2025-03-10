@@ -19,8 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${satoshi.className} antialiased`}>
         <Providers>
-          <Toaster {...TOASTER_PROPS} />
-          {children}
+            <Toaster {...TOASTER_PROPS} />
+            {children}
         </Providers>
       </body>
     </html>

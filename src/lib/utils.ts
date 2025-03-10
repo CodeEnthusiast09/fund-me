@@ -1,7 +1,14 @@
-import seedrandom from "seedrandom";
 import { Pagination } from "interfaces";
-import { deleteFromLocalStorage } from "./localStorage";
-import { PAYMENT_REQUEST_STATUS, EQUIPMENT_OPERATIONAL_STATUS } from "./enum";
+import {
+  retrieveFromLocalStorage,
+  deleteFromLocalStorage,
+} from "./localStorage";
+
+export const isTokenExpired = () => {
+  const expiration = retrieveFromLocalStorage("token_expiration");
+  if (!expiration) return true;
+  return Date.now() > parseInt(expiration, 10);
+};
 
 export const convertCamelKeysToSnakeCase = (obj: any): any => {
   if (Array.isArray(obj)) {
@@ -150,6 +157,7 @@ export const getBgStatusColor = (status: string) => {
       return "bg-gray-500";
   }
 };
+
 export const addCommaToNumber = (
   val: number | string,
   includeTrailingZeros: boolean = false
@@ -254,26 +262,6 @@ export const clearAuthenticationCredentials = () => {
   deleteFromLocalStorage("email");
 };
 
-// Define an array of colors
-const colors = [
-  // "bg-red-500",
-  "bg-green-500",
-  "bg-primary-500",
-  "bg-secondary-500",
-];
-
-// Define a function to generate a random background color based on a seed
-export const getRandomBgColor = (seed = "test") => {
-  const rng = seedrandom(seed);
-  const random = rng();
-
-  // Round the random number to get a consistent value
-  const roundedRandom = Math.floor(random * colors.length);
-
-  // Use the rounded value to get the color
-  return colors[roundedRandom];
-};
-
 export const extractPaginationFromGetResponse = (
   resolvedData: Pagination
 ): Pagination | null => {
@@ -290,83 +278,6 @@ export const extractPaginationFromGetResponse = (
   };
 
   return pagination;
-};
-
-export const arraysAreEqual = (array1: any[], array2: any[]): boolean => {
-  // Check if arrays are of equal length
-  if (array1.length !== array2.length) {
-    return false;
-  }
-
-  // Compare each object in the arrays
-  for (let i = 0; i < array1.length; i++) {
-    const obj1 = array1[i];
-    const obj2 = array2[i];
-
-    if (obj1.id !== obj2.id) {
-      return false;
-    }
-  }
-
-  // Arrays are equal
-  return true;
-};
-
-export const getVacancyApplicationLink = (id: string) => {
-  return `${process.env.NEXT_PUBLIC_APP_URL}/general/jobs/${id}/description`;
-};
-
-export const getVendorSoaLink = (id: string) => {
-  return `${process.env.NEXT_PUBLIC_APP_URL}/general/vendors/${id}/soa`;
-};
-
-export const getVendorKYCLink = (id: string, type: string) => {
-  return `${process.env.NEXT_PUBLIC_APP_URL}/general/vendors/${id}/${type}/kyc`;
-};
-
-export const generateYearTillCurrentYear = () => {
-  const currentYear = new Date().getFullYear();
-  const startYear = 2024;
-  const years = [];
-
-  for (let year = currentYear; year >= startYear; year--) {
-    years.push(year);
-  }
-
-  return years;
-};
-
-export const formatTime = (input: Date | string): string => {
-  let date: Date;
-
-  if (input instanceof Date) {
-    date = input;
-  } else if (typeof input === "string") {
-    const timeParts = input.split(":");
-    if (timeParts.length === 3) {
-      const now = new Date();
-      date = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        parseInt(timeParts[0]),
-        parseInt(timeParts[1]),
-        parseInt(timeParts[2])
-      );
-    } else {
-      return "N/A";
-    }
-  } else {
-    return "N/A";
-  }
-
-  const options: Intl.DateTimeFormatOptions = {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  };
-
-  return new Intl.DateTimeFormat("en-US", options).format(date);
 };
 
 export const formatNumberWithConditionalDecimal = (
@@ -417,63 +328,6 @@ export const convertBooleanStringsFromObject = (
   return result;
 };
 
-export const generateAndDownloadXlsxFromBlob = ({
-  data,
-  fileName,
-}: {
-  data: any;
-  fileName: string;
-}) => {
-  const blob = new Blob([data], {
-    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  });
-
-  const url = window.URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.setAttribute("download", fileName);
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-};
-
-export const paymentStatusColor = (status: string) => {
-  switch (status) {
-    case PAYMENT_REQUEST_STATUS.PENDING:
-      return "bg-primary-500";
-    case PAYMENT_REQUEST_STATUS.NOT_AUTHORIZED:
-      return "bg-red-500";
-    case PAYMENT_REQUEST_STATUS.NOT_APPROVED:
-      return "bg-red-500";
-    case PAYMENT_REQUEST_STATUS.AUTHORIZED:
-      return "bg-green-500";
-    case PAYMENT_REQUEST_STATUS.APPROVED:
-      return "bg-green-500";
-    case PAYMENT_REQUEST_STATUS.PAID:
-      return "bg-green-500";
-    case PAYMENT_REQUEST_STATUS.AWAITING_MD_APPROVAL:
-      return "bg-gray-500";
-    case PAYMENT_REQUEST_STATUS.TRANSFERRED:
-      return "bg-gray-500";
-
-    default:
-      return "bg-gray-500";
-  }
-};
-
-export const equipmentOperationalStatusColor = (status: string) => {
-  switch (status) {
-    case EQUIPMENT_OPERATIONAL_STATUS.OPERATIONAL:
-      return "bg-green-500";
-    case EQUIPMENT_OPERATIONAL_STATUS.EXPIRED:
-      return "bg-red-500";
-    case EQUIPMENT_OPERATIONAL_STATUS.UNDER_MAINTENANCE:
-      return "bg-yellow-500";
-    default:
-      return "bg-gray-500";
-  }
-};
-
 export const truncateString = (input: string, maxLength = 100): string => {
   if (!input?.trim()) return "";
   if (input.length > maxLength) {
@@ -481,23 +335,6 @@ export const truncateString = (input: string, maxLength = 100): string => {
   }
 
   return input;
-};
-
-export const doesTimeOverlapWithHour = (
-  timeStart: string,
-  timeEnd: string,
-  hour: number
-): boolean => {
-  const start = new Date(`1970-01-01T${timeStart}:00`);
-  const end = new Date(`1970-01-01T${timeEnd}:00`);
-  const hourStart = new Date(
-    `1970-01-01T${String(hour).padStart(2, "0")}:00:00`
-  );
-  const hourEnd = new Date(
-    `1970-01-01T${String(hour + 1).padStart(2, "0")}:00:00`
-  );
-
-  return start < hourEnd && end > hourStart;
 };
 
 export const isValidUrl = (urlString: string): boolean => {

@@ -9,3 +9,4 @@ export * from "./useOnClickOutside";
 export * from "./useSignUp";
 export * from "./usePayazaCheckout";
 export * from "./campaign";
+export * from './useAuth'

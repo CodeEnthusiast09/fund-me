@@ -35,8 +35,8 @@ export const LoginForm = () => {
         label="Email"
         type="text"
         placeholder="Enter email"
-        error={errors.email}
-        {...register("email", { required: true })}
+        error={errors.username}
+        {...register("username", { required: true })}
       />
       <div className="relative">
         <MaskPasswordInput

@@ -21,12 +21,12 @@ export const useSignUp = () => {
     mutationFn: ({ data }: MutationProp) => {
       return clientRequest.auth.register(data);
     },
-    onSuccess: async (response: APIResponse) => {
-      if (response?.success) {
-        toast.success(response?.message ?? "Account created successfully");
+    onSuccess: (response: APIResponse) => {
+      // if (response?.success) {
+      toast.success(response?.message ?? "Account created successfully");
 
-        router.push("/auth/verify");
-      }
+      router.push("/auth/verify");
+      // }
     },
     onError: (error: ApiError) => {
       toast.error(error?.message || "Opps! Something went wrong.");

@@ -8,13 +8,13 @@ import { FaTimes } from "react-icons/fa";
 import { navItems } from "./navbar.data";
 import { NavItem } from "interfaces/global";
 import { NavBarItem } from "./navbar-item";
-import { useSignIn } from "hooks";
+import { useAuth } from "hooks";
 import UserMenu from "../user-menu";
 
 export const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
 
-  const { data, isSuccess } = useSignIn();
+  const isLoggedIn = useAuth();
 
   const toggleNav = () => {
     setShowNav((prev: boolean) => !prev);
@@ -45,7 +45,7 @@ export const Navbar = () => {
           ))}
         </ul>
       </nav>
-      {isSuccess && data?.data?.user ? (
+      {isLoggedIn ? (
         <UserMenu />
       ) : (
         <LinkButton

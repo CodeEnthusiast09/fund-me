@@ -4,25 +4,26 @@ import { useState } from "react";
 import Link from "next/link";
 import Featured from "./_components/featured";
 import DonationContent from "./_components/myDonations";
+import { useAuth } from "hooks";
 import { useRouter } from "next/navigation";
-import { useSignIn } from "hooks";
-import toast from "react-hot-toast";
 import { Button } from "components/button";
 
 const Donation = () => {
   const [activeTab, setActiveTab] = useState("browse");
 
-  const { isSuccess, data } = useSignIn();
+  const isLoggedIn = useAuth();
+
+  console.log(isLoggedIn);
 
   const router = useRouter();
 
   const handleStartCampaign = () => {
-    if (!isSuccess || !data?.data?.user) {
-      toast.error("Please sign in to start a campaign");
-      router.push("/auth/login");
-    } else {
-      router.push("/donation/new-campaign");
-    }
+    // if (!isSuccess || !data?.data?.user) {
+    //   toast.error("Please sign in to start a campaign");
+    //   router.push("/auth/login");
+    // } else {
+    router.push("/donation/new-campaign");
+    // }
   };
 
   return (

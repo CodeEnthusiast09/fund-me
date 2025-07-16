@@ -22,11 +22,13 @@ FundlyNest is a modern, responsive crowdfunding platform built with modern front
 
 ## 📸 Screenshots
 
-Homepage:
-![Home](./screenshots/home.png)
+**Homepage:**
 
-Donation Dashboard:
-![Donation](./screenshots/donation.png)
+![Home](./public/fundlynest.vercel.app_.png)
+
+**Donation Dashboard:**
+
+![Donation](./public/fundlynest.vercel.app_donation.png)
 
 ---
 

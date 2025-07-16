@@ -53,7 +53,7 @@ https://fundlynest.vercel.app
 Clone the repository:
 
 ```bash
-git clone [FRONTEND_REPO_URL]
+git clone https://github.com/CodeEnthusiast09/fund-me.git
 cd fundlynest
 npm install
 npm run dev

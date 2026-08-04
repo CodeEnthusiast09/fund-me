@@ -5,8 +5,10 @@ export interface Campaign extends Base {
   headerImage: string;
   description: string;
   story: string;
-  goal: string;
-  deadline: string;
+  goal: number;
+  deadline?: string;
   category: string[];
   socialMediaLinks: string[];
+  amountRaised: number;
+  donorCount: number;
 }

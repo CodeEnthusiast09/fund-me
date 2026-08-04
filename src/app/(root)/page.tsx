@@ -8,8 +8,13 @@ import { IoMdFlash } from "react-icons/io";
 import { ImEarth } from "react-icons/im";
 import Community from "./_components/community";
 import FAQ from "./_components/faq";
+import { useHotCampaigns } from "hooks";
+import { getDaysLeft } from "lib/utils";
 
 export default function Home() {
+  const { data: campaigns } = useHotCampaigns();
+  const featuredCampaigns = campaigns?.slice(0, 3) ?? [];
+
   return (
     <div>
       {/* Bg-image */}
@@ -81,27 +86,24 @@ export default function Home() {
           Every second counts!
         </p>
         <div className="grid-cols-3 md:justify-items-center lg:grid lg:mx-20">
-          <DonationsCard
-            image="/pexels-rdne-7414284.jpg"
-            title="GreenFund: Sustain Earth Now"
-            creator="We Care"
-            amount="50,240,210"
-            daysLeft="7"
-          />
-          <DonationsCard
-            image="/pexels-rdne-7414284.jpg"
-            title="GreenFund: Sustain Earth Now"
-            creator="We Care"
-            amount="50,240,210"
-            daysLeft="7"
-          />
-          <DonationsCard
-            image="/pexels-rdne-7414284.jpg"
-            title="GreenFund: Sustain Earth Now"
-            creator="We Care"
-            amount="50,240,210"
-            daysLeft="7"
-          />
+          {featuredCampaigns.map((campaign) => (
+            <DonationsCard
+              key={campaign.id}
+              id={campaign.id}
+              image={campaign.headerImage}
+              title={campaign.title}
+              creator={`${campaign.creator?.firstName ?? ""} ${
+                campaign.creator?.lastName ?? ""
+              }`.trim()}
+              amount={campaign.amountRaised.toLocaleString()}
+              daysLeft={String(getDaysLeft(campaign.deadline) ?? "—")}
+              percentFunded={
+                campaign.goal
+                  ? (campaign.amountRaised / campaign.goal) * 100
+                  : 0
+              }
+            />
+          ))}
         </div>
       </div>
       <Community />

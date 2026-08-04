@@ -37,9 +37,11 @@ export interface DataTableFilter {
 }
 
 export interface DataCampaignFilter {
+  page?: number;
   limit?: number;
-  order?: string;
   search?: string;
+  category?: string;
+  sort?: string;
 }
 
 export interface TableCell {

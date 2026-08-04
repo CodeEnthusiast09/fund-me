@@ -1,10 +1,10 @@
 import { APIResponse, ApiError } from "interfaces";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-// import { clientRequest } from "services";
-import { clientRequest } from "services/client-request-gateway-new"; 
+import { clientRequest } from "services";
 import { InferType } from "yup";
 import { campaignValidationSchema } from "validations";
+import { uploadFile } from "lib/file-upload";
 
 type MutationProp = {
   data: InferType<typeof campaignValidationSchema>;
@@ -17,8 +17,15 @@ export const useCreateCampaign = (onSuccess?: Function) => {
     ApiError,
     MutationProp
   >({
-    // @ts-ignore
     mutationFn: async ({ data }: MutationProp) => {
+      if (data.headerImage) {
+        const fileUrl = await uploadFile(data.headerImage as File, "Image");
+        if (!fileUrl) {
+          throw new Error("File upload failed");
+        }
+        data.headerImage = fileUrl;
+      }
+
       return clientRequest.campaign.create(data);
     },
     onSuccess: (response: APIResponse) => {

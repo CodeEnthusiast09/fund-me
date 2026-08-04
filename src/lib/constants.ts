@@ -26,7 +26,8 @@ export const DEFAULT_TABLE_FILTERS: DataTableFilter = {
 
 
 export const DEFAULT_CAMPAIGN_FILTERS: DataCampaignFilter = {
+  page: 1,
   limit: 6,
-  order: "desc",
   search: "",
+  sort: "newest",
 };

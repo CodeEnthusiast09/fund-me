@@ -13,7 +13,7 @@ import { campaignValidationSchema } from "validations";
 import { InferType } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TextEditor = dynamic(() => import("components/text-editor"), {
   ssr: false,
@@ -39,6 +39,13 @@ export const Form = () => {
   const handleCreateCampaign: SubmitHandler<
     InferType<typeof campaignValidationSchema>
   > = (data) => mutate({ data });
+
+  // CheckableList only updates local state (it expects a useState-style
+  // setter), so the selection needs an explicit sync into the form's
+  // `category` field or the submitted payload never reflects it.
+  useEffect(() => {
+    setValue("category", selectedCategory);
+  }, [selectedCategory, setValue]);
 
   return (
     <form onSubmit={handleSubmit(handleCreateCampaign)}>

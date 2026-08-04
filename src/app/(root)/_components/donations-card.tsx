@@ -1,17 +1,23 @@
 import { DonationsCardProps } from "./types";
 import Image from "next/image";
+import Link from "next/link";
 import { HiOutlineShare } from "react-icons/hi";
 import { FaRegHeart } from "react-icons/fa";
 
 const DonationsCard = ({
+  id,
   image = "/pexels-rdne-7414284.jpg",
   creator,
   title,
   amount,
   daysLeft,
+  percentFunded = 0,
 }: DonationsCardProps) => {
   return (
-    <div className="w-full mt-10 max-w-md rounded-xl overflow-hidden bg-lightGray p-4 hover:shadow-lg transition-shadow">
+    <Link
+      href={id ? `/donation/${id}` : "#"}
+      className="w-full mt-10 max-w-md rounded-xl overflow-hidden bg-lightGray p-4 hover:shadow-lg transition-shadow block"
+    >
       {/* Image Container */}
       <div className="relative w-full h-60">
         <Image
@@ -41,7 +47,7 @@ const DonationsCard = ({
             <div className="w-72 bg-black rounded-full h-2 flex">
               <div
                 className="bg-lightGreen h-2 rounded-full"
-                style={{ width: "75%" }}
+                style={{ width: `${Math.min(100, percentFunded)}%` }}
               />
             </div>
             <FaRegHeart className="text-xl hover:text-red-500 cursor-pointer" />
@@ -55,7 +61,7 @@ const DonationsCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

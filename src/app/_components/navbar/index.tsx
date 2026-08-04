@@ -14,7 +14,7 @@ import UserMenu from "../user-menu";
 export const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
 
-  const isLoggedIn = useAuth();
+  const { isLoggedIn } = useAuth();
 
   const toggleNav = () => {
     setShowNav((prev: boolean) => !prev);

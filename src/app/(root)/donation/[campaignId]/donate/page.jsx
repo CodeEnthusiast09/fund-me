@@ -1,7 +1,7 @@
 import { PageTitle } from "components/page-title";
 import Form from "./_components/form";
 
-const Page = () => {
+const Page = ({ params }) => {
   return (
     <div className="m-5 lg:m-9">
       <div className="text-center">
@@ -11,7 +11,7 @@ const Page = () => {
         />
       </div>
 
-      <Form />
+      <Form campaignId={params.campaignId} />
     </div>
   );
 };

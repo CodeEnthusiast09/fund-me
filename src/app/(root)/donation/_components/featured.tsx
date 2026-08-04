@@ -1,7 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
 import { Search, Heart, Share2 } from "lucide-react";
+import { useHotCampaigns } from "hooks";
 
 const Featured = () => {
+  const { data: campaigns, isPending, handleSearch } = useHotCampaigns();
+
   return (
     <div>
       <div className="flex flex-wrap gap-4 mb-8">
@@ -11,6 +17,7 @@ const Featured = () => {
               type="search"
               placeholder="Search campaigns..."
               className="w-full px-4 py-2 pl-10 border rounded-lg"
+              onChange={(e) => handleSearch(e.target.value)}
             />
             <Search
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
@@ -43,43 +50,58 @@ const Featured = () => {
 
       {/* Featured Campaigns */}
       <h2 className="text-2xl font-bold mb-6">Featured Campaigns</h2>
-      {/* <div> */}
-      <Link
-        href="/donation/campaignId"
-        className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
-      >
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div
-            key={i}
-            className="border rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
-          >
-            <div className="aspect-video bg-gray-200"></div>
-            <div className="p-4">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="font-semibold">Campaign Title</h3>
-                <button className="text-gray-500 hover:text-black">
-                  <Share2 size={18} />
-                </button>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {!isPending && campaigns?.length === 0 && (
+          <p className="text-gray-500 col-span-full">No campaigns found.</p>
+        )}
+        {campaigns?.map((campaign) => {
+          const percentFunded = campaign.goal
+            ? Math.min(100, (campaign.amountRaised / campaign.goal) * 100)
+            : 0;
+
+          return (
+            <Link
+              key={campaign.id}
+              href={`/donation/${campaign.id}`}
+              className="border rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <div className="relative aspect-video bg-gray-200">
+                {campaign.headerImage && (
+                  <Image
+                    alt={campaign.title}
+                    src={campaign.headerImage}
+                    fill
+                    className="object-cover"
+                  />
+                )}
               </div>
-              <p className="text-gray-600 text-sm mb-4">
-                Brief description of the campaign goes here...
-              </p>
-              <div className="flex justify-between items-center">
-                <div>
-                  <div className="h-2 w-48 bg-darkGray rounded-full overflow-hidden">
-                    <div className="h-full w-3/4 bg-[#9FE870]"></div>
-                  </div>
-                  <p className="text-sm text-gray-600 mt-1">75% funded</p>
+              <div className="p-4">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="font-semibold">{campaign.title}</h3>
+                  <Share2 size={18} className="text-gray-500" />
                 </div>
-                <button className="text-gray-500 hover:text-red-500">
-                  <Heart size={18} />
-                </button>
+                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  {campaign.description}
+                </p>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <div className="h-2 w-48 bg-darkGray rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-[#9FE870]"
+                        style={{ width: `${percentFunded}%` }}
+                      />
+                    </div>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {Math.round(percentFunded)}% funded
+                    </p>
+                  </div>
+                  <Heart size={18} className="text-gray-500" />
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
-      </Link>
-      {/* </div> */}
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 };

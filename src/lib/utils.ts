@@ -1,4 +1,4 @@
-import { Pagination } from "interfaces";
+import { PaginationMeta } from "interfaces";
 import {
   retrieveFromLocalStorage,
   deleteFromLocalStorage,
@@ -110,6 +110,13 @@ export const getTimeAgo = (dateString: string): string => {
     };
     return inputDate.toLocaleTimeString(undefined, options);
   }
+};
+
+export const getDaysLeft = (deadline?: string): number | null => {
+  if (!deadline) return null;
+  const deadlineDate = new Date(deadline);
+  const diffMs = deadlineDate.getTime() - Date.now();
+  return Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
 };
 
 export const getDaysAgo = (dateString: string): string => {
@@ -236,7 +243,7 @@ export const scrollToBottom = (ref: any) => {
 export const validateEnvironmentVariables = () => {
   const requiredEnvironmentVariables = [
     "NEXT_PUBLIC_API_BASE_URL",
-    "NEXT_PUBLIC_API_KEY",
+    "NEXT_PUBLIC_PAYAZA_KEY",
     "NEXT_PUBLIC_TECHNICAL_SUPPORT_EMAIL",
   ];
   const missingEnvironmentVariables = [] as string[];
@@ -257,27 +264,18 @@ export const validateEnvironmentVariables = () => {
 };
 
 export const clearAuthenticationCredentials = () => {
-  deleteFromLocalStorage("token");
-  deleteFromLocalStorage("user-id");
-  deleteFromLocalStorage("email");
+  deleteFromLocalStorage("access_token");
+  deleteFromLocalStorage("token_expiration");
 };
 
 export const extractPaginationFromGetResponse = (
-  resolvedData: Pagination
-): Pagination | null => {
-  if (!resolvedData?.currentPage) {
+  resolvedData: { meta?: PaginationMeta }
+): PaginationMeta | null => {
+  if (!resolvedData?.meta) {
     return null;
   }
 
-  const pagination: Pagination = {
-    currentPage: resolvedData?.currentPage,
-    hasMorePages: resolvedData?.hasMorePages,
-    lastPage: resolvedData?.lastPage,
-    perPage: resolvedData?.perPage,
-    total: resolvedData?.total,
-  };
-
-  return pagination;
+  return resolvedData.meta;
 };
 
 export const formatNumberWithConditionalDecimal = (

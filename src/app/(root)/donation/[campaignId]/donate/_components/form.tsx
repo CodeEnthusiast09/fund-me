@@ -8,10 +8,10 @@ import { payoutValidationSchema } from "validations";
 import { InferType } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Select } from "components/select";
-import { usePayazaCheckout } from "hooks";
+import { useCreateDonation } from "hooks";
 
-const Form = () => {
-  const { mutate: checkout, isPending: isSubmitting } = usePayazaCheckout();
+const Form = ({ campaignId }: { campaignId: string }) => {
+  const { mutate: donate, isPending: isSubmitting } = useCreateDonation();
   const router = useRouter();
 
   const {
@@ -22,12 +22,12 @@ const Form = () => {
     resolver: yupResolver(payoutValidationSchema),
   });
 
-  const handleSignUp: SubmitHandler<
+  const handleDonate: SubmitHandler<
     InferType<typeof payoutValidationSchema>
-  > = (data) => checkout({ data });
+  > = (data) => donate({ campaignId, data });
 
   return (
-    <form onSubmit={handleSubmit(handleSignUp)}>
+    <form onSubmit={handleSubmit(handleDonate)}>
       <Input
         label="Firstname"
         type="text"

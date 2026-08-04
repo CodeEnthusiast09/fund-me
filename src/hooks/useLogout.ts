@@ -1,25 +1,25 @@
 "use client";
 
-import { deleteFromLocalStorage } from "lib/localStorage";
+import { useQueryClient } from "@tanstack/react-query";
+import { clearAuthenticationCredentials } from "lib/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const useLogout = (onSuccess?: Function) => {
   const [isPending, setIsPending] = useState<boolean>(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const mutate = () => {
     setIsPending(true);
-    // clear login data
-    deleteFromLocalStorage("token");
-    deleteFromLocalStorage("user-id");
-    deleteFromLocalStorage("email");
+    clearAuthenticationCredentials();
+    queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
 
     setTimeout(() => {
+      setIsPending(false);
       if (onSuccess) {
         onSuccess?.();
       } else {
-        // redirect to login page
         router.replace("/");
       }
     }, 1100);

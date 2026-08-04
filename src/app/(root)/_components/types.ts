@@ -10,9 +10,11 @@ export type FeaturesCardProps = {
 };
 
 export type DonationsCardProps = {
+  id?: string;
   image?: string | StaticImport;
   creator?: string;
   title?: string;
   amount?: string;
   daysLeft?: string;
+  percentFunded?: number;
 };

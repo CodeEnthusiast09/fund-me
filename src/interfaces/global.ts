@@ -18,6 +18,16 @@ export interface Pagination {
   total?: number;
 }
 
+// Matches the Go backend's PaginatedResponse.meta shape. Kept separate
+// from `Pagination` above, which is the (currently unused) admin Table
+// kit's own pagination shape.
+export interface PaginationMeta {
+  total?: number;
+  page?: number;
+  limit?: number;
+  totalPages?: number;
+}
+
 export interface Base {
   id: string;
   creator?: User;

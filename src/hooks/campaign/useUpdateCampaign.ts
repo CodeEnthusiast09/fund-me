@@ -7,6 +7,7 @@ import { campaignValidationSchema } from "validations";
 import { uploadFile } from "lib/file-upload";
 
 type MutationProp = {
+  id: string;
   data: InferType<typeof campaignValidationSchema>;
 };
 
@@ -18,31 +19,16 @@ export const useUpdateCampaign = (onSuccess?: Function) => {
     ApiError,
     MutationProp
   >({
-    // @ts-ignore
     mutationFn: async ({ id, data }: MutationProp) => {
-      const uploads: any[] = [];
-
       if (data.headerImage) {
-        const fileUpload = uploadFile(
-          data.headerImage as File,
-          `campaign/image`,
-          "Image"
-        ).then((fileUrl) => {
-          if (fileUrl) {
-            data.headerImage = fileUrl;
-            return true;
-          }
-          return false;
-        });
-        uploads.push(fileUpload);
+        const fileUrl = await uploadFile(data.headerImage as File, "Image");
+        if (!fileUrl) {
+          throw new Error("File upload failed");
+        }
+        data.headerImage = fileUrl;
       }
-      const results = await Promise.all(uploads);
 
-      if (results?.every((result) => result === true)) {
-        return clientRequest.campaign.update(id, data);
-      } else {
-        throw new Error("File upload failed");
-      }
+      return clientRequest.campaign.update(id, data);
     },
     onSuccess: (response: APIResponse) => {
       if (response?.success) {

@@ -1,7 +1,5 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
 import PayazaCheckout from "payaza-web-sdk";
 import { PayazaCheckoutOptionsInterface } from "payaza-web-sdk/lib/PayazaCheckoutDataInterface";
 import { ConnectionMode } from "payaza-web-sdk/lib/PayazaCheckout";
@@ -16,13 +14,13 @@ interface PayazaResponse {
   success: boolean;
   message: string;
   data?: any;
+  transactionReference: string;
 }
 
 export const usePayazaCheckout = () => {
-  const router = useRouter();
   const merchantKey = process.env.NEXT_PUBLIC_PAYAZA_KEY;
 
-  const { mutate, isPending, isSuccess } = useMutation<
+  const { mutate, mutateAsync, isPending, isSuccess } = useMutation<
     PayazaResponse,
     Error,
     MutationProp
@@ -30,25 +28,25 @@ export const usePayazaCheckout = () => {
     mutationFn: async ({ data }: MutationProp) => {
       return new Promise((resolve, reject) => {
         try {
-          // Validate merchant key
           if (!merchantKey) {
             throw new Error("Payaza merchant key is not configured");
           }
 
+          const transactionReference = `TX_${Date.now()}`;
+
           const checkoutData: PayazaCheckoutOptionsInterface = {
-            merchant_key: "PZ78-PKTEST-4DD181CE-7F34-4151-BD37-14D664541428",
+            merchant_key: merchantKey,
             connection_mode: (process.env.NODE_ENV === "production"
               ? "live"
               : "Test") as ConnectionMode,
-            // currency_code: data.currency_code,
-            currency_code: "NGN",
+            currency_code: data.currency_code,
             email_address: data.email_address,
             first_name: data.first_name,
             last_name: data.last_name,
             phone_number: data.phone_number,
             checkout_amount: data.checkout_amount,
             currency: "₦",
-            transaction_reference: `TX_${Date.now()}`,
+            transaction_reference: transactionReference,
             onClose: () => {
               reject(new Error("Checkout was closed"));
             },
@@ -57,6 +55,7 @@ export const usePayazaCheckout = () => {
                 success: true,
                 message: "Payment successful",
                 data: response,
+                transactionReference,
               });
             },
           };
@@ -72,20 +71,7 @@ export const usePayazaCheckout = () => {
         }
       });
     },
-    onSuccess: (response) => {
-      toast.success(response.message ?? "Payment completed successfully");
-      router.back();
-    },
-    onError: (error: Error) => {
-      // More specific error handling
-      if (error.message.includes("merchant key")) {
-        toast.error("Payment configuration error. Please contact support.");
-        console.error("Payaza merchant key error:", error);
-      } else {
-        toast.error(error.message || "Payment failed. Please try again.");
-      }
-    },
   });
 
-  return { mutate, isPending, isSuccess };
+  return { mutate, mutateAsync, isPending, isSuccess };
 };

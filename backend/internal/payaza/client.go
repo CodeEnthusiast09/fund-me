@@ -2,10 +2,12 @@ package payaza
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/CodeEnthusiast09/fund-me-backend/internal/config"
@@ -21,45 +23,54 @@ type VerificationResult struct {
 }
 
 // Verifier is implemented by Client. Kept as an interface so donation
-// business logic can be built and tested against a stub while the exact
-// Payaza verify contract is confirmed.
+// business logic can be built and tested against a stub independent of
+// the live Payaza integration.
 type Verifier interface {
 	VerifyTransaction(ctx context.Context, reference string) (*VerificationResult, error)
 }
 
 type Client struct {
-	secretKey string
+	publicKey string
 	baseURL   string
+	tenantID  string // "live" or "test", per Payaza's X-TenantID header
 	http      *http.Client
 }
 
 func NewClient(cfg *config.Config) *Client {
+	tenantID := "test"
+	if cfg.Env == "production" {
+		tenantID = "live"
+	}
+
 	return &Client{
-		secretKey: cfg.PayazaSecretKey,
-		baseURL:   cfg.PayazaAPIBaseURL,
+		publicKey: cfg.PayazaPublicKey,
+		baseURL:   strings.TrimSuffix(cfg.PayazaAPIBaseURL, "/"),
+		tenantID:  tenantID,
 		http:      &http.Client{},
 	}
 }
 
-// VerifyTransaction confirms a transaction reference directly with Payaza
-// server-to-server before a donation is ever persisted — a client-supplied
-// "payment succeeded" call can't be trusted on its own, since anyone could
-// POST a fake reference without ever paying.
+// VerifyTransaction confirms a merchant transaction reference directly with
+// Payaza server-to-server before a donation is ever persisted -- a
+// client-supplied "payment succeeded" call can't be trusted on its own.
 //
-// FLAG: the exact verify endpoint path, auth header format, and response
-// schema need confirming against Payaza's merchant/checkout API docs during
-// implementation — this was not verified against live docs during planning.
-// The shape below is a best-effort placeholder against Payaza's general
-// "verify transaction by reference" pattern; adjust the URL, headers, and
-// the payload struct below once confirmed.
+// Matches Payaza's Transaction Status Query API:
+// https://docs.payaza.africa/api-reference/check-transaction-statusmerchant-reference/check-transaction-statusmerchant-reference.md
 func (c *Client) VerifyTransaction(ctx context.Context, reference string) (*VerificationResult, error) {
-	url := fmt.Sprintf("%s/checkout/transaction/verify/%s", c.baseURL, reference)
+	endpoint := fmt.Sprintf(
+		"%s/merchant-collection/transfer_notification_controller/merchant/transaction-query?merchant_reference=%s",
+		c.baseURL,
+		url.QueryEscape(reference),
+	)
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("Authorization", "Bearer "+c.secretKey)
+	// Payaza's custom auth scheme: "Payaza <base64(public key)>", not Bearer.
+	req.Header.Set("Authorization", "Payaza "+base64.StdEncoding.EncodeToString([]byte(c.publicKey)))
+	req.Header.Set("X-TenantID", c.tenantID)
+	req.Header.Set("X-ProductID", "app")
 	req.Header.Set("Accept", "application/json")
 
 	resp, err := c.http.Do(req)
@@ -78,23 +89,24 @@ func (c *Client) VerifyTransaction(ctx context.Context, reference string) (*Veri
 	}
 
 	var payload struct {
-		Status   bool `json:"status"`
-		Response struct {
+		Success bool   `json:"success"`
+		Message string `json:"message"`
+		Data    struct {
 			TransactionStatus string  `json:"transaction_status"`
-			Amount            float64 `json:"amount"`
-			CurrencyCode      string  `json:"currency_code"`
-		} `json:"response"`
+			AmountReceived    float64 `json:"amount_received"`
+			Currency          string  `json:"currency"`
+		} `json:"data"`
 	}
 	if err := json.Unmarshal(raw, &payload); err != nil {
 		return nil, err
 	}
 
-	successful := payload.Status && strings.EqualFold(payload.Response.TransactionStatus, "successful")
+	successful := payload.Success && strings.EqualFold(payload.Data.TransactionStatus, "Completed")
 
 	return &VerificationResult{
 		Successful:   successful,
-		Amount:       payload.Response.Amount,
-		CurrencyCode: payload.Response.CurrencyCode,
+		Amount:       payload.Data.AmountReceived,
+		CurrencyCode: payload.Data.Currency,
 		Raw:          raw,
 	}, nil
 }

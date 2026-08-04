@@ -28,6 +28,7 @@ type Config struct {
 	CloudinaryUploadFolder string
 	MaxUploadSizeMB        int64
 
+	PayazaPublicKey  string
 	PayazaSecretKey  string
 	PayazaAPIBaseURL string
 }
@@ -37,6 +38,12 @@ func Load() (*Config, error) {
 		Port:                   getEnv("PORT", "8080"),
 		Env:                    getEnv("ENV", "development"),
 		CloudinaryUploadFolder: getEnv("CLOUDINARY_UPLOAD_FOLDER", "fundlynest/campaigns"),
+		// Not required: Payaza's transaction-verify API authenticates with
+		// the public key (see internal/payaza/client.go), so the secret
+		// key isn't consumed by any current code path. Kept optional here
+		// rather than boot-blocking in case a future webhook signature
+		// check or other Payaza API call needs it.
+		PayazaSecretKey: getEnv("PAYAZA_SECRET_KEY", ""),
 	}
 
 	required := map[string]*string{
@@ -45,7 +52,7 @@ func Load() (*Config, error) {
 		"CLOUDINARY_CLOUD_NAME": &cfg.CloudinaryCloudName,
 		"CLOUDINARY_API_KEY":    &cfg.CloudinaryAPIKey,
 		"CLOUDINARY_API_SECRET": &cfg.CloudinaryAPISecret,
-		"PAYAZA_SECRET_KEY":     &cfg.PayazaSecretKey,
+		"PAYAZA_PUBLIC_KEY":     &cfg.PayazaPublicKey,
 		"PAYAZA_API_BASE_URL":   &cfg.PayazaAPIBaseURL,
 		"CORS_ALLOWED_ORIGINS":  nil, // parsed separately below
 	}

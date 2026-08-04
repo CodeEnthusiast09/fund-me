@@ -49,6 +49,10 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 			response.Fail(w, http.StatusPaymentRequired, "Payment could not be verified", "PaymentNotVerified")
 		case errors.Is(err, ErrAmountMismatch):
 			response.Fail(w, http.StatusBadRequest, "Verified amount does not match submitted amount", "ValidationError")
+		case errors.Is(err, ErrCurrencyMismatch):
+			response.Fail(w, http.StatusBadRequest, "Verified currency does not match submitted currency", "ValidationError")
+		case errors.Is(err, ErrTransactionAlreadyClaimed):
+			response.Fail(w, http.StatusConflict, "This transaction has already been recorded", "Conflict")
 		default:
 			response.Fail(w, http.StatusInternalServerError, "Could not record donation", "ServerError")
 		}

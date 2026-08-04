@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -37,8 +38,17 @@ func Auth(secret string) func(http.Handler) http.Handler {
 
 			claims := &Claims{}
 			token, err := jwt.ParseWithClaims(tokenString, claims, func(t *jwt.Token) (any, error) {
+				// Pin the accepted algorithm inside the keyfunc itself, not
+				// just via WithValidMethods below — trusting whatever `alg`
+				// the token header claims before checking it is the classic
+				// JWT algorithm-confusion hole (e.g. an attacker swapping
+				// in a different algorithm the app would otherwise accept
+				// using key material that isn't actually the HMAC secret).
+				if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
+					return nil, fmt.Errorf("unexpected signing method: %v", t.Header["alg"])
+				}
 				return []byte(secret), nil
-			})
+			}, jwt.WithValidMethods([]string{"HS256"}))
 			if err != nil || !token.Valid {
 				response.Fail(w, http.StatusUnauthorized, "Invalid or expired token", "Unauthorized")
 				return
